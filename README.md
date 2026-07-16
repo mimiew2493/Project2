@@ -168,3 +168,69 @@ git push
  ↓
 main อัปเดตแล้ว
 ```
+
+When working on the `dev` branch, always follow this workflow to avoid conflicts.
+
+### 1. Pull the latest changes
+
+```bash
+git pull --rebase origin dev
+```
+
+### 2. Make your changes
+
+Edit files as needed.
+
+### 3. Commit your changes
+
+```bash
+git add .
+git commit -m "Describe your changes"
+```
+
+### 4. Pull again before pushing
+
+```bash
+git pull --rebase origin dev
+```
+
+This ensures your branch includes any new commits pushed by teammates.
+
+### 5. Push to GitHub
+
+```bash
+git push origin dev
+```
+
+### Notes
+```bash
+git pull --rebase origin dev
+```
+## 1.เมื่อทำงานเสร็จ
+
+```bash
+git add .
+git commit -m "Describe your changes"
+```
+## 2.ก่อนส่งขึ้น GitHub
+
+```bash
+git pull --rebase origin dev
+```
+## 3.ถ้ามี Conflict
+
+```bash
+git add .
+git rebase --continue
+```
+
+## 4.ทำซ้ำจน Rebase เสร็จ
+
+---
+
+## 5. ส่งขึ้น GitHub
+
+```bash
+git push origin dev
+```
+```

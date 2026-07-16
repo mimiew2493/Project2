@@ -43,6 +43,13 @@
       "when": 1784213525504,
       "tag": "0005_robust_slyde",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1784217200770,
+      "tag": "0006_careless_beast",
+      "breakpoints": true
     }
   ]
 }

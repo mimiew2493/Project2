@@ -5,3 +5,7 @@ export * from "./occupational-therapist";
 export * from "./medical-records-staff";
 export * from "./patient-programs";
 export * from "./programs";
+export * from "./therapy-sessions";
+export * from "./feedbacks";
+export * from "./movement-data";
+export * from "./devices";
