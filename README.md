@@ -23,10 +23,12 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 ## Learn More
 
 ## DB:USER postgres WITH PASSWORD 'project67';
+
 ```bash
 npx drizzle-kit generate
 npx drizzle-kit migrate
 ```
+
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
@@ -40,145 +42,129 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-# Git Commands (Project Workflow)
+# Git Workflow
 
-## 1. ตรวจสอบสถานะไฟล์
+## Branch
+
+- `main` : Branch หลัก เก็บเวอร์ชันที่พร้อมใช้งาน
+- `dev` : Branch สำหรับพัฒนา แก้ไข และเพิ่ม Feature ก่อนรวมเข้า main
+
+Flow:
+
+```
+dev (พัฒนา)
+   ↓
+Commit + Push
+   ↓
+Review / ตรวจสอบ
+   ↓
+Merge เข้า main
+   ↓
+main (เวอร์ชันหลัก)
+```
+
+---
+
+# 1. การอัปเดตโค้ดขึ้น GitHub
+
+ใช้หลังจากแก้ไขโค้ดเสร็จแล้ว
+
 ```bash
 git status
 ```
-> ดูว่าไฟล์ไหนถูกแก้ไข เพิ่ม หรือลบ
 
----
+ตรวจสอบไฟล์ที่มีการเปลี่ยนแปลง
 
-## 2. ดึงโค้ดล่าสุดจาก GitHub
-```bash
-git pull
-```
-> ดึงการเปลี่ยนแปลงล่าสุดจาก Repository ก่อนเริ่มทำงาน
-
-> หากเคยเกิดปัญหา unrelated histories (ใช้ครั้งแรกเท่านั้น)
-```bash
-git pull origin main --allow-unrelated-histories --no-rebase
-```
-
----
-
-## 3. เพิ่มไฟล์ที่แก้ไข
 ```bash
 git add .
 ```
-> เพิ่มไฟล์ทั้งหมดเข้า Staging Area
 
-หรือเพิ่มเฉพาะไฟล์
+เพิ่มไฟล์ที่ต้องการบันทึก
 
 ```bash
-git add src/app/page.tsx
+git commit -m "Describe changes"
 ```
 
----
+บันทึกการเปลี่ยนแปลง
 
-## 4. Commit การเปลี่ยนแปลง
 ```bash
-git commit -m "Describe your changes"
+git push
 ```
 
-ตัวอย่าง
+อัปโหลด Commit ขึ้น GitHub
+
+ตัวอย่าง:
 
 ```bash
+git add .
 git commit -m "Add login page"
-git commit -m "Fix sidebar layout"
-git commit -m "Update patient dashboard"
-```
-
----
-
-## 5. Push ขึ้น GitHub
-```bash
 git push
 ```
 
-> ส่ง Commit ขึ้น GitHub
-
 ---
 
-## 6. ตรวจสอบ Remote Repository
+# 2. การรวม dev เข้า main (Merge)
+
+เมื่อพัฒนาใน `dev` เสร็จ และต้องการรวมเข้า `main`
+
+## ขั้นตอน
+
+### 1. เปลี่ยนไปที่ main
+
 ```bash
-git remote -v
+git checkout main
 ```
 
-> ดูว่าเชื่อมกับ GitHub Repository ไหนอยู่
-
----
-
-## 7. เปลี่ยน URL ของ Remote
-```bash
-git remote set-url origin https://github.com/OWNER/REPOSITORY.git
-```
-
----
-
-## 8. ลบ Remote
-```bash
-git remote remove origin
-```
-
----
-
-## 9. เพิ่ม Remote
-```bash
-git remote add origin https://github.com/OWNER/REPOSITORY.git
-```
-
----
-
-## 10. ดูประวัติ Commit
-```bash
-git log --oneline --graph --all --decorate
-```
-
----
-
-# Daily Workflow
+### 2. ดึงโค้ดล่าสุดจาก GitHub
 
 ```bash
 git pull
+```
+
+### 3. รวมโค้ดจาก dev
+
+```bash
+git merge dev
+```
+
+### 4. อัปโหลด main ที่รวมแล้วขึ้น GitHub
+
+```bash
+git push
+```
+
+---
+
+# สรุปการทำงานทั้งหมด
+
+## ทำงานประจำวัน (อยู่บน dev)
+
+```
+แก้โค้ด
+ ↓
 git status
+ ↓
 git add .
-git commit -m "Describe your changes"
+ ↓
+git commit -m "รายละเอียดที่แก้"
+ ↓
 git push
 ```
 
 ---
 
-# First Time Setup (Only Once)
+## เมื่อต้องการรวมงานเข้า main
 
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/OWNER/REPOSITORY.git
-git branch -M main
-git push -u origin main
 ```
-
----
-
-# Merge Conflict (README Example)
-
-ใช้ไฟล์ของเครื่องเรา
-
-```bash
-git checkout --ours README.md
-git add README.md
-git commit -m "Merge remote main"
+dev เสร็จ
+ ↓
+git checkout main
+ ↓
+git pull
+ ↓
+git merge dev
+ ↓
 git push
-```
-
-ใช้ไฟล์จาก GitHub
-
-```bash
-git checkout --theirs README.md
-git add README.md
-git commit -m "Merge remote main"
-git push
+ ↓
+main อัปเดตแล้ว
 ```
