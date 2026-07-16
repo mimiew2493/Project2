@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <!-- กำหนดเข้ารหัสภาษาไทย -->
+    <meta charset="UTF-8">
+    <!-- ให้เว็บแสดงผลถูกต้องบนมือถือ -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ชื่อที่แสดงบน Tab ของเบราว์เซอร์ -->
+    <title>ระบบติ้วฟื้นฟู ALS - เข้าสู่ระบบ</title>
+    <!-- เชื่อมโยงไฟล์ CSS (จัดรูปแบบ) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- เนื้อหาหลักของเว็บ -->
+    <div class="login-container">
+        
+        <!-- ส่วน Logo และชื่อแอป -->
+        <div class="logo-section">
+            <!-- โลโก้ (สัญลักษณ์สีน้ำเงิน) -->
+            <div class="logo">🏥</div>
+            <!-- ชื่อแอป -->
+            <h1>ระบบฟื้นฟู ALS</h1>
+            <!-- คำอธิบาย -->
+            <p class="tagline">พยุงมือที่ตติ้วชีวิต สร้างความหวัง</p>
+        </div>
+
+        <!-- ข้อความต้อนรับ -->
+        <h2>ยินดีต้อนรับกลับมา</h2>
+
+        <!-- ฟอร์มเข้าสู่ระบบ -->
+        <form id="loginForm" class="login-form">
+            
+            <!-- ฟิลด์ที่ 1: รหัสผู้ใช้ -->
+            <div class="input-group">
+                <!-- ไอคอนผู้ใช้ -->
+                <span class="input-icon">👤</span>
+                <!-- ช่องกรอกรหัสผู้ใช้ -->
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username"
+                    placeholder="เช่น P-001"
+                    class="input-field"
+                    required
+                >
+            </div>
+            <!-- ข้อความแจ้งข้อผิดพลาด (ซ่อนไว้แรก) -->
+            <span class="error-message" id="usernameError"></span>
+
+            <!-- ฟิลด์ที่ 2: รหัสผ่าน -->
+            <div class="input-group">
+                <!-- ไอคอนล็อก -->
+                <span class="input-icon">🔒</span>
+                <!-- ช่องกรอกรหัสผ่าน -->
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password"
+                    placeholder="••••••••"
+                    class="input-field"
+                    required
+                >
+                <!-- ปุ่มแสดง/ซ่อนรหัสผ่าน (eye icon) -->
+                <button 
+                    type="button" 
+                    class="toggle-password" 
+                    id="togglePassword"
+                >
+                    👁️
+                </button>
+            </div>
+            <!-- ข้อความแจ้งข้อผิดพลาด (ซ่อนไว้แรก) -->
+            <span class="error-message" id="passwordError"></span>
+
+            <!-- Checkbox: จำรหัสผ่าน -->
+            <div class="remember-section">
+                <input 
+                    type="checkbox" 
+                    id="rememberMe" 
+                    name="rememberMe"
+                    class="checkbox"
+                >
+                <label for="rememberMe">จำหรือให้คิด</label>
+            </div>
+
+            <!-- ปุ่มเข้าสู่ระบบ -->
+            <button type="submit" class="login-button">
+                <!-- ข้อความปุ่ม (เปลี่ยนตอน Loading) -->
+                <span id="buttonText">เข้าสู่ระบบ</span>
+                <!-- Spinner (แสดงตอน Loading) -->
+                <span id="spinner" class="spinner" style="display: none;"></span>
+            </button>
+
+            <!-- ลิงค์ลืมรหัสผ่าน -->
+            <div class="forgot-password-section">
+                <button type="button" id="forgotPasswordBtn" class="forgot-link">
+                    ลืมรหัสผ่าน?
+                </button>
+            </div>
+        </form>
+
+        <!-- Footer: ติดต่อเจ้าหน้าที่ -->
+        <div class="footer-help">
+            <p>ปัญหาในการเข้าสู่ระบบ? <a href="#">ติดต่อเจ้าหน้าที่</a></p>
+        </div>
+    </div>
+
+    <!-- Modal: ลืมรหัสผ่าน (ซ่อนไว้แรก) -->
+    <div id="forgotPasswordModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h3>ลืมรหัสผ่าน</h3>
+            <p>กรุณากรอกรหัสผู้ใช้ของคุณ เราจะส่งลิงค์รีเซ็ตไปยังอีเมลของคุณ</p>
+            <input 
+                type="text" 
+                id="resetUsername" 
+                placeholder="รหัสผู้ใช้"
+                class="input-field"
+            >
+            <button id="sendResetBtn" class="login-button">ส่งลิงค์รีเซ็ต</button>
+        </div>
+    </div>
+
+    <!-- เชื่อมโยงไฟล์ JavaScript (จัดการปุ่ม) -->
+    <script src="script.js"></script>
+</body>
+</html>
