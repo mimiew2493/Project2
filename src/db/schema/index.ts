@@ -1,3 +1,4 @@
 export * from "./roles";
 export * from "./users";
 export * from "./patients";
+export * from "./occupational-therapist";
