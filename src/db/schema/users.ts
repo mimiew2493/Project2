@@ -1,5 +1,9 @@
 import { pgTable, varchar, timestamp, date } from "drizzle-orm/pg-core";
 import { roles } from "./roles";
+import { patients } from "./patients";
+import { occupationalTherapists } from "./occupational-therapist";
+import { medicalRecordsStaff } from "./medical-records-staff";
+import { relations } from "drizzle-orm";
 
 export const users = pgTable("users", {
   userId: varchar("user_id", { length: 10 }).primaryKey(),
@@ -26,9 +30,27 @@ export const users = pgTable("users", {
 
   birthDate: date("birth_date"),
 
-  status: varchar("status", { length: 20 }),
+  status: varchar("status", { length: 20 }).default("active").notNull(),
 
-  createdAt: timestamp("created_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 
-  updatedAt: timestamp("updated_at"),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+export const usersRelations = relations(users, ({ one }) => ({
+  role: one(roles, {
+    fields: [users.roleId],
+    references: [roles.roleId],
+  }),
+  patient: one(patients, {
+    fields: [users.userId],
+    references: [patients.userId],
+  }),
+  occupationalTherapist: one(occupationalTherapists, {
+    fields: [users.userId],
+    references: [occupationalTherapists.userId],
+  }),
+  medicalRecordsStaff: one(medicalRecordsStaff, {
+    fields: [users.userId],
+    references: [medicalRecordsStaff.userId],
+  }),
+}));

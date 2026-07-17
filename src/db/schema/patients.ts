@@ -1,5 +1,6 @@
 import { pgTable, varchar, date, decimal } from "drizzle-orm/pg-core";
 import { users } from "./users";
+import { relations } from "drizzle-orm";
 
 export const patients = pgTable("patients", {
   patientId: varchar("patient_id", { length: 10 }).primaryKey(),
@@ -39,3 +40,9 @@ export const patients = pgTable("patients", {
     length: 255,
   }),
 });
+export const patientsRelations = relations(patients, ({ one }) => ({
+  user: one(users, {
+    fields: [patients.userId],
+    references: [users.userId],
+  }),
+}));

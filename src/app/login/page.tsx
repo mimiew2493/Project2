@@ -26,11 +26,8 @@ import {
 
 import { toast } from "sonner";
 
-
 export default function LoginPage() {
-
   const router = useRouter();
-
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -45,45 +42,29 @@ export default function LoginPage() {
 
   const [error, setError] = useState("");
 
-
-
-  const handleSubmit = async (
-    e: React.FormEvent
-  ) => {
-
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     setError("");
-
 
     if (!username) {
       setError("กรุณากรอกรหัสผู้ใช้");
       return;
     }
 
-
     if (!password) {
       setError("กรุณากรอกรหัสผ่าน");
       return;
     }
 
-
     if (password.length < 6) {
-      setError(
-        "รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร"
-      );
+      setError("รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร");
       return;
     }
 
-
-
     setLoading(true);
 
-
-
     try {
-
-
       /*
         ตอนนี้ยังไม่ต่อ API
 
@@ -93,59 +74,23 @@ export default function LoginPage() {
 
       */
 
-
-      await new Promise(
-        (resolve) =>
-          setTimeout(resolve,1000)
-      );
-
-
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       if (rememberMe) {
-
-        localStorage.setItem(
-          "username",
-          username
-        );
-
+        localStorage.setItem("username", username);
       }
 
+      toast.success("เข้าสู่ระบบสำเร็จ");
 
-
-      toast.success(
-        "เข้าสู่ระบบสำเร็จ"
-      );
-
-
-
-      router.push(
-        "/dashboard"
-      );
-
-
-
-    } catch(error) {
-
-
-      toast.error(
-        "เข้าสู่ระบบไม่สำเร็จ"
-      );
-
-
+      router.push("/dashboard");
+    } catch (error) {
+      toast.error("เข้าสู่ระบบไม่สำเร็จ");
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
-
-
-
-
   return (
-
     <main
       className="
       flex min-h-screen
@@ -153,56 +98,38 @@ export default function LoginPage() {
       justify-center
       bg-gradient-to-br
       from-blue-100
-      to-blue-300
+      to-blue-200
       px-4
       "
     >
-
-
       <Card
         className="
         w-full
         max-w-md
         "
       >
-
-
-        <CardHeader
-          className="text-center"
-        >
-
+        <CardHeader className="text-center">
           <div
             className="
-            text-5xl
+            text-3xl
             "
           >
-            🏥
+            logo
           </div>
-
 
           <CardTitle
             className="
             text-2xl
-            text-blue-600
+            text-black-600
             "
           >
             ระบบฟื้นฟู ALS
           </CardTitle>
 
-
-          <CardDescription>
-            พยุงมือที่เคลื่อนไหว สร้างความหวัง
-          </CardDescription>
-
-
+          <CardDescription>พยุงมือที่เคลื่อนไหว สร้างความหวัง</CardDescription>
         </CardHeader>
 
-
-
-
         <CardContent>
-
-
           <h2
             className="
             mb-6
@@ -214,99 +141,44 @@ export default function LoginPage() {
             ยินดีต้อนรับกลับมา
           </h2>
 
-
-
           <form
             onSubmit={handleSubmit}
             className="
             space-y-4
             "
           >
-
-
-
             <Input
-
               placeholder="เช่น P-001"
-
               value={username}
-
-              onChange={
-                (e)=>
-                setUsername(
-                  e.target.value
-                )
-              }
-
+              onChange={(e) => setUsername(e.target.value)}
             />
-
-
 
             <div
               className="
               relative
               "
             >
-
               <Input
-
-                type={
-                  showPassword
-                  ? "text"
-                  : "password"
-                }
-
+                type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
-
                 value={password}
-
-                onChange={
-                  (e)=>
-                  setPassword(
-                    e.target.value
-                  )
-                }
-
+                onChange={(e) => setPassword(e.target.value)}
               />
 
-
               <button
-
                 type="button"
-
-                onClick={
-                  ()=>setShowPassword(
-                    !showPassword
-                  )
-                }
-
+                onClick={() => setShowPassword(!showPassword)}
                 className="
                 absolute
                 right-3
                 top-2.5
                 "
-
               >
-
-                {
-                  showPassword
-                  ?
-                  <EyeOff size={20}/>
-                  :
-                  <Eye size={20}/>
-                }
-
-
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
-
-
             </div>
 
-
-
-            {
-              error &&
-
+            {error && (
               <p
                 className="
                 text-sm
@@ -315,11 +187,7 @@ export default function LoginPage() {
               >
                 {error}
               </p>
-
-            }
-
-
-
+            )}
 
             <div
               className="
@@ -328,83 +196,36 @@ export default function LoginPage() {
               gap-2
               "
             >
-
               <Checkbox
-
                 checked={rememberMe}
-
-                onCheckedChange={
-                  (value)=>
-                  setRememberMe(
-                    Boolean(value)
-                  )
-                }
-
+                onCheckedChange={(value) => setRememberMe(Boolean(value))}
               />
 
-
-              <span>
-                จำรหัสผ่าน
-              </span>
-
-
+              <span>จำรหัสผ่าน</span>
             </div>
 
-
-
-
             <Button
-
               type="submit"
-
               className="
               w-full
               "
-
               disabled={loading}
-
             >
-
-              {
-                loading
-                ?
-                "กำลังเข้าสู่ระบบ..."
-                :
-                "เข้าสู่ระบบ"
-              }
-
-
+              {loading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
             </Button>
 
-
-
-
             <button
-
               type="button"
-
-              onClick={
-                ()=>setForgotOpen(true)
-              }
-
+              onClick={() => setForgotOpen(true)}
               className="
               w-full
               text-sm
               text-blue-600
               "
-
             >
-
               ลืมรหัสผ่าน?
-
             </button>
-
-
-
           </form>
-
-
-
 
           <div
             className="
@@ -416,9 +237,7 @@ export default function LoginPage() {
             text-gray-500
             "
           >
-
             ปัญหาในการเข้าสู่ระบบ?
-
             <span
               className="
               ml-1
@@ -427,74 +246,25 @@ export default function LoginPage() {
             >
               ติดต่อเจ้าหน้าที่
             </span>
-
-
           </div>
-
-
-
         </CardContent>
-
-
       </Card>
 
-
-
-
-      <Dialog
-
-        open={forgotOpen}
-
-        onOpenChange={
-          setForgotOpen
-        }
-
-      >
-
+      <Dialog open={forgotOpen} onOpenChange={setForgotOpen}>
         <DialogContent>
-
-
           <DialogHeader>
-
-            <DialogTitle>
-              ลืมรหัสผ่าน
-            </DialogTitle>
-
+            <DialogTitle>ลืมรหัสผ่าน</DialogTitle>
 
             <DialogDescription>
-
-              กรุณากรอกรหัสผู้ใช้
-              เพื่อรีเซ็ตรหัสผ่าน
-
+              กรุณากรอกรหัสผู้ใช้ เพื่อรีเซ็ตรหัสผ่าน
             </DialogDescription>
-
-
           </DialogHeader>
 
+          <Input placeholder="รหัสผู้ใช้" />
 
-
-          <Input
-            placeholder="รหัสผู้ใช้"
-          />
-
-
-          <Button>
-
-            ส่งลิงค์รีเซ็ต
-
-          </Button>
-
-
-
+          <Button>ส่งลิงค์รีเซ็ต</Button>
         </DialogContent>
-
-
       </Dialog>
-
-
-
     </main>
-
   );
-
 }
