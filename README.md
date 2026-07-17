@@ -203,34 +203,40 @@ git push origin dev
 ```
 
 ### Notes
+## 1. ก่อนเริ่มทำงาน
+
 ```bash
 git pull --rebase origin dev
 ```
-## 1.เมื่อทำงานเสร็จ
+
+## 2. ทำงาน
+
+แก้ไขโค้ดตามปกติ
+
+## 3. บันทึกงาน
 
 ```bash
 git add .
 git commit -m "Describe your changes"
 ```
-## 2.ก่อนส่งขึ้น GitHub
+
+## 4. ดึงงานล่าสุดก่อนส่ง
 
 ```bash
 git pull --rebase origin dev
 ```
-## 3.ถ้ามี Conflict
-
-```bash
-git add .
-git rebase --continue
-```
-
-## 4.ทำซ้ำจน Rebase เสร็จ
-
----
 
 ## 5. ส่งขึ้น GitHub
 
 ```bash
 git push origin dev
 ```
+## หากเกิด Conflict
+```bash
+git rebase --continue 
 ```
+ใช้ เฉพาะตอนที่
+```bash
+git pull --rebase
+``` 
+เกิด Conflict เท่านั้น
