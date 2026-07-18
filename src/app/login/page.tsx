@@ -65,26 +65,42 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      /*
-        ตอนนี้ยังไม่ต่อ API
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
 
-        ขั้นต่อไปจะเปลี่ยนเป็น:
+      const data = await response.json();
 
-        fetch("/api/auth/login")
-
-      */
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (!response.ok || !data.success) {
+        setError(data.message || "เข้าสู่ระบบไม่สำเร็จ");
+        toast.error(data.message || "เข้าสู่ระบบไม่สำเร็จ");
+        return;
+      }
 
       if (rememberMe) {
         localStorage.setItem("username", username);
+      } else {
+        localStorage.removeItem("username");
       }
 
-      toast.success("เข้าสู่ระบบสำเร็จ");
+      toast.success(data.message || "เข้าสู่ระบบสำเร็จ");
 
+      // ถ้าจะเก็บข้อมูลผู้ใช้ไว้ฝั่ง Client
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      // เปลี่ยนภายหลังเป็นแยกตาม Role ได้
       router.push("/dashboard");
-    } catch (error) {
-      toast.error("เข้าสู่ระบบไม่สำเร็จ");
+    } catch (err) {
+      console.error(err);
+      setError("ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้");
+      toast.error("ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้");
     } finally {
       setLoading(false);
     }
@@ -148,7 +164,7 @@ export default function LoginPage() {
             "
           >
             <Input
-              placeholder="เช่น P-001"
+              placeholder="เช่น patientxx"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
