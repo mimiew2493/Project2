@@ -231,7 +231,7 @@ git pull --rebase origin dev
 ```bash
 git push origin dev
 ```
-## หากเกิด Conflict
+## --หากเกิด Conflict--
 ```bash
 git rebase --continue 
 ```
